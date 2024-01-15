@@ -48,7 +48,6 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
         </sub>
       </a>
     </td>
-  </tr>
     <td align="center">
       <a href="https://github.com/viniciusmaciel126" title="Vinicius Maciel">
         <img src="https://github.com/viniciusmaciel126.png" width="100px;" alt="Foto do Vinicius Maciel no GitHub"/><br>
