@@ -10,7 +10,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - Você instalou a versão mais recente de `Visual Studio Code`
 - Você instalou a extensão do [`REST Client`](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) (Extensão do VSCode)
 
-## ☕ Usando <nome_do_projeto>
+## ☕ Usando
 
 Para rodar o projeto use o comando:
 
