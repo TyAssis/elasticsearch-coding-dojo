@@ -1,0 +1,24 @@
+### bulk insert
+POST {{ elasticurl }}/talent_pool/_bulk
+Content-Type: application/x-ndjson
+
+{ "index": { "_index" : "talent_pool" }}
+{"name": "Alice Johnson","title": "Software Engineer","email": "alice.johnson@example.com","phone": "555-0110","summary": "Experienced software engineer","languages": ["Portuguese", "French"],"years_of_experience": 10,"available_for_work": false,"birthdate": "1992-10-17"}
+{ "index": { "_index" : "talent_pool" }}
+{"name": "Bob Smith","title": "Software Engineer","email": "bob.smith@example.com","phone": "555-0111","summary": "Skilled data analyst","languages": ["English", "Spanish"],"years_of_experience": 7,"available_for_work": true,"birthdate": "1991-03-03"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Candidato 3",  "title": "Project Manager",  "email": "candidato3@example.com",  "phone": "555-0112",  "summary": "Efficient project manager",  "languages": ["German"],  "years_of_experience": 3,  "available_for_work": false,  "birthdate": "1987-07-21"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Jack Martinez",  "title": "Data Analyst",  "email": "jack.martinez@example.com",  "phone": "555-0113",  "summary": "Data analyst with deep understanding best software practices for data manipulation in engineering domain",  "languages": ["Portuguese"],  "years_of_experience": 5,  "available_for_work": true,  "birthdate": "1995-11-11"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Isabel Thomas",  "title": "UX Designer",  "email": "isabel.thomas@example.com",  "phone": "555-0114",  "summary": "Creative UX designer with a user-centric approach",  "languages": ["English", "French"],  "years_of_experience": 8,  "available_for_work": true,  "birthdate": "1990-04-05"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Henry Wilson",  "title": "Marketing Specialist",  "email": "henry.wilson@example.com",  "phone": "555-0115",  "summary": "Innovative marketing specialist",  "languages": ["Spanish", "English"],  "years_of_experience": 4,  "available_for_work": false,  "birthdate": "1988-08-18"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Grace Lee",  "title": "Network Administrator",  "email": "grace.lee@example.com",  "phone": "555-0116",  "summary": "Skilled network administrator",  "languages": ["French"],  "years_of_experience": 6,  "available_for_work": true,  "birthdate": "1985-02-27"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Frank Miller",  "title": "HR Manager",  "email": "frank.miller@example.com",  "phone": "555-0117",  "summary": "Human resources manager with extensive experience",  "languages": ["German", "Portuguese"],  "years_of_experience": 9,  "available_for_work": true,  "birthdate": "1983-05-14"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "Eve Davis",  "title": "Business Analyst",  "email": "eve.davis@example.com",  "phone": "555-0118",  "summary": "Detail-oriented business analyst",  "languages": ["English"],  "years_of_experience": 2,  "available_for_work": false,  "birthdate": "1992-12-29"}
+{ "index": { "_index" : "talent_pool" }}
+{  "name": "David Brown",  "title": "Graphic Designer",  "email": "david.brown@example.com",  "phone": "555-0119",  "summary": "Graphic designer known for creative solutions",  "languages": ["Spanish", "French"],  "years_of_experience": 7,  "available_for_work": true,  "birthdate": "1989-09-09"}

@@ -1,0 +1,124 @@
+### get all talents
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+    "query" : {
+        "match_all" : {}
+    }
+}
+
+### document with id 1
+GET {{elasticurl}}/talent_pool/_doc/ysDzHY0Bop8Ak8qZ1w06
+
+### talents with more than 5 years of exp and available to work
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [{
+        "range": { "years_of_experience": { "gt": 5 } }
+      }, {
+        "match": { "available_for_work": true }
+      }]
+    }
+  }
+}
+
+### talents with exact "software engineer" written in summary
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match_phrase": { "summary": "software engineer" }
+  }
+}
+
+### talents with title Data Analyst 
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match": { "title": "Data Analyst" }
+  }
+}
+
+### talents with more than 5 years of exp up until 10 years of exp
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "range": {
+      "years_of_experience": { "gte": 5, "lte": 10 }
+    }
+  }
+}
+
+### talents speaking english
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "languages": "English"
+          }
+        }
+      ]
+    }
+  }
+}
+
+### talents speaking spanish or english
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "languages": "English"
+          }
+        },
+        {
+          "match": {
+            "languages": "Spanish"
+          }
+        }
+      ]
+    }
+  }
+}
+
+### talents speaking spanish and french
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "languages": "English"
+          }
+        },
+        {
+          "match": {
+            "languages": "French"
+          }
+        }
+      ]
+    }
+  }
+}
