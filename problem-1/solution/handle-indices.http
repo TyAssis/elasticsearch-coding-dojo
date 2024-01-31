@@ -1,0 +1,12 @@
+### index creation
+PUT {{ elasticurl }}/talent_pool
+Content-Type: application/json
+
+### cat indexes
+GET {{elasticurl}}/_cat/indices
+
+### cat talent_pool index
+GET {{elasticurl}}/talent_pool
+
+### delete talent_pool index
+DELETE {{elasticurl}}/talent_pool
