@@ -1,0 +1,223 @@
+### talents in one specific company (without mapping)
+# Using, for instance, Huels and LLC would worked, but
+# using Adams and LLC could return a wrong result for a person
+# that worked both at Huels LLC and also Borer, Hartman and Adams
+
+
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [{
+        "match": {
+          "professional_experience.company": "Huels"
+        }
+      }, {
+        "match": {
+          "professional_experience.company": "LLC"
+        }
+      }]
+    }
+  }
+}
+
+### talents in one specific company (with mapping)
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "nested": {
+      "path": "professional_experience",
+      "query": {
+        "term": {
+           "professional_experience.company": "Huels LLC"
+         }
+      }
+    }
+  }
+}
+
+### talents ordered by certification count
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  },
+  "sort": {
+    "_script": {
+      "type": "number",
+      "script": "params['_source']['certifications'].size()",
+      "order": "desc"
+    }
+  }
+}
+
+### another possible solution, but should be fixed
+# {
+#   "size": 10,
+#   "aggs": {
+#     "certifications": {
+#       "nested": {
+#         "path": "certifications"
+#       },
+#       "aggs": {
+#         "by_candidate": {
+#           "terms": {
+#             "field": "certifications.name.keyword",
+#             "size": 10,
+#             "order": {
+#               "_count": "desc"
+#             }
+#           }
+#         }
+#       }
+#     }
+#   }
+# }
+
+### talents that worked between 2014 and 2019
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "nested": {
+      "path": "professional_experience",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "professional_experience.start_date": {
+                  "gte": "2014-01-01"
+                }
+              }
+            },
+            {
+              "range": {
+                "professional_experience.end_date": {
+                  "lte": "2019-12-31"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+### talents with Shield LLC certification
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "nested": {
+      "path": "certifications",
+      "query": {
+        "term": {
+           "certifications.authority": "Shields LLC"
+         }
+      }
+    }
+  }
+}
+
+### talents that worked at Schaden Group as Software Engineers
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "nested": {
+      "path": "professional_experience",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "professional_experience.company": "Schaden Group"
+              }
+            },
+            {
+              "match": {
+                "professional_experience.position": "Software Engineer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+### talents that have more than 3 years of exp as Software Engineers
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "nested": {
+      "path": "professional_experience",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "professional_experience.position": "Sofware Engineer"
+              }
+            },
+            {
+              "script": {
+                "script": {
+                  "lang": "painless",
+                  "source": "doc['professional_experience.end_date'].value.getYear() - doc['professional_experience.start_date'].value.getYear() > 3"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+### talents that worked as Data Analyst and as Software Engineer
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "nested": {
+            "path": "professional_experience",
+            "query": {
+              "match": {
+                "professional_experience.position": "Data Analyst"
+              }
+            }
+          }
+        },
+        {
+          "nested": {
+            "path": "professional_experience",
+            "query": {
+              "match": {
+                "professional_experience.position": "Software Engineer"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

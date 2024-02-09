@@ -1,0 +1,74 @@
+### index creation without mapping
+PUT {{ elasticurl }}/talent_pool
+Content-Type: application/json
+
+### index creation with mapping
+PUT {{ elasticurl }}/talent_pool
+Content-Type: application/json
+
+{
+  "mappings": {
+    "properties": {
+      "name": { "type": "text" },
+      "title": { "type": "text" },
+      "email": { "type": "text" },
+      "phone": { "type": "keyword" },
+      "summary": { "type": "text" },
+      "languages": { "type": "text" },
+      "years_of_experience": { "type": "byte" },
+      "available_for_work": { "type": "boolean" },
+      "birthdate": { "type": "date" },
+      "professional_experience": { 
+        "type": "nested",
+        "properties": {
+          "company": { "type": "keyword" },
+          "position": { "type": "text" },
+          "start_date": { "type": "date" },
+          "end_date": { "type": "date" },
+          "summary": { "type": "text" }
+        }
+      },
+      "certifications": { 
+        "type": "nested",
+        "properties": {
+          "name": { "type": "keyword" },
+          "authority": { "type": "keyword" },
+          "year": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
+
+# alternatively, we can use
+# company": {
+#   "type": "text",
+#   "fields": {
+#     "keyword": {
+#       "type": "keyword"
+#     }
+#   }
+# },
+# it will save but analyzed and not analyzed string
+
+
+### cat indexes
+GET {{elasticurl}}/_cat/indices
+
+### cat talent_pool index
+GET {{elasticurl}}/talent_pool
+
+### delete talent_pool index
+DELETE {{elasticurl}}/talent_pool
+
+#### check mapping types
+GET {{elasticurl}}/talent_pool/_mapping
+
+#### analyze how index is being saved
+GET {{elasticurl}}/talent_pool/_analyze
+Content-Type: application/json
+
+{
+   "analyzer": "standard",
+   "text": "Ritchie - O'Kon"
+}
