@@ -1,0 +1,111 @@
+### How many talents can speak each listed language
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "languages": {
+      "terms": {
+        "field": "languages"
+      }
+    }
+  }
+}
+
+### average experience years among talents
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "avg_exp": {
+      "avg": {
+        "field": "years_of_experience"
+      }
+    }
+  }
+}
+
+### talents that worked at DuBuque LLC between 2008 and 2020
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "avg_exp": {
+      "avg": {
+        "field": "years_of_experience"
+      }
+    }
+  }
+}
+
+### most commom company in all curriculums
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "professional_experience": {
+      "nested": {
+        "path": "professional_experience"
+      }
+    },
+    "aggs": {
+      "companies": {
+        "terms": {
+          "field": "professional_experience.company.keyword"
+        }
+      }
+    }
+  }
+}
+
+### talents average age
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "avg_exp": {
+      "avg": {
+        "field": "years_of_experience"
+      }
+    }
+  }
+}
+
+### correlation among experience and certification counts
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "avg_exp": {
+      "avg": {
+        "field": "years_of_experience"
+      }
+    }
+  }
+}
+
+### how has the average experience years changed along the years
+GET {{elasticurl}}/talent_pool/_search
+Content-Type: application/json
+
+{
+  "size": 0,
+  "aggs": {
+    "avg_exp": {
+      "avg": {
+        "field": "years_of_experience"
+      }
+    }
+  }
+}
